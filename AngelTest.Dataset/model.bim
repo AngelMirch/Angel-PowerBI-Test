@@ -278,6 +278,11 @@
             "expression": "AVERAGE(TestTable[Amount])",
             "formatString": "0",
             "lineageTag": "8bfad7c3-9b73-4492-b82b-b53394cdfe40"
+          },
+          {
+            "name": "TestMeasureAngel",
+            "expression": "\"Test on .pbip file\"",
+            "lineageTag": "be2289ac-17f0-46d5-98f7-1b29ae143a78"
           }
         ],
         "partitions": [
