@@ -4,7 +4,7 @@
     "annotations": [
       {
         "name": "PBI_QueryOrder",
-        "value": "[\"TestTable\",\"TestMeasure\"]"
+        "value": "[\"TestTable\",\"TestMeasure\",\"TestSource\"]"
       },
       {
         "name": "__PBI_TimeIntelligenceEnabled",
@@ -38,6 +38,17 @@
       "returnErrorValuesAsNull": true
     },
     "defaultPowerBIDataSourceVersion": "powerBI_V3",
+    "relationships": [
+      {
+        "name": "4fe13b88-d42e-4bce-8ec6-a02a3cdcc867",
+        "crossFilteringBehavior": "bothDirections",
+        "fromCardinality": "one",
+        "fromColumn": "Id",
+        "fromTable": "TestSource",
+        "toColumn": "ID",
+        "toTable": "TestTable"
+      }
+    ],
     "sourceQueryCulture": "en-GB",
     "tables": [
       {
@@ -304,6 +315,68 @@
         ]
       },
       {
+        "name": "TestSource",
+        "annotations": [
+          {
+            "name": "PBI_ResultType",
+            "value": "Table"
+          }
+        ],
+        "changedProperties": [
+          {
+            "property": "Name"
+          }
+        ],
+        "columns": [
+          {
+            "name": "Id",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "int64",
+            "formatString": "0",
+            "lineageTag": "6dc07444-74a9-4efb-bbf0-f310b0bf52bf",
+            "sourceColumn": "Id",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Region",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "8dbbc3a4-de31-4f41-b8d4-a9ff70f984b0",
+            "sourceColumn": "Region",
+            "summarizeBy": "none"
+          }
+        ],
+        "lineageTag": "d734fa30-bfc6-429e-b422-04a63b0b5d82",
+        "partitions": [
+          {
+            "name": "TestSource",
+            "mode": "import",
+            "source": {
+              "expression": [
+                "let",
+                "    Source = Excel.Workbook(File.Contents(\"C:\\Users\\Angel.Mirchevski\\OneDrive - BtoBet\\Documents\\Angel Test\\Source Test\\SourceTest.xlsx\"), null, true),",
+                "    Sheet1_Sheet = Source{[Item=\"Sheet1\",Kind=\"Sheet\"]}[Data],",
+                "    #\"Promoted Headers\" = Table.PromoteHeaders(Sheet1_Sheet, [PromoteAllScalars=true]),",
+                "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Promoted Headers\",{{\"Id\", Int64.Type}, {\"Region\", type text}})",
+                "in",
+                "    #\"Changed Type\""
+              ],
+              "type": "m"
+            }
+          }
+        ]
+      },
+      {
         "name": "TestTable",
         "annotations": [
           {
@@ -347,7 +420,7 @@
             "formatString": "0",
             "lineageTag": "2c2afeb7-a94b-4ffc-95a3-cd3ce3875ef9",
             "sourceColumn": "ID",
-            "summarizeBy": "count"
+            "summarizeBy": "none"
           },
           {
             "name": "Name",
